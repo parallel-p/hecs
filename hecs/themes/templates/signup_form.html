@@ -6,6 +6,9 @@
         {% if login_used %}
         <p>Логин уже используется</p>
         {% endif %}
+        {% if missing %}
+        <p>Все поля обязательны к заполнению</p>
+        {% endif %}
         <form action="/signup" method="post">
                 {% csrf_token %}
                 <table>
