@@ -59,6 +59,10 @@ body {
     margin-left:66px;
 }
 
+.hex_link:hover .hexagon_big{background-color: black; color: white;}
+.hex_link:hover .hexagon_big:before{border-bottom: 40px solid black;}
+.hex_link:hover .hexagon_big:after{border-top: 40px solid black;}
+
 .hexagon.hex_link:hover{background-color: black; color: white;}
 .hexagon.hex_link:hover:before{border-bottom: 30px solid black;}
 .hexagon.hex_link:hover:after{border-top: 30px solid black;}

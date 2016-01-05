@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>Настройки</title>
+{% endblock %}
+
+{% block body %}
+        {% if missing %}
+        <p>Все поля должны быть заполнены</p>
+        {% endif %}
+        <form action="/settings" method="post">
+                {% csrf_token %}
+                <table>
+                <tr>
+                <td>Имя</td><td><input type="text" name="firstname" value="{{ user.first_name }}" autocomplete="off"></td>
+                </tr>
+                <tr>
+                <td>Фамилия</td><td><input type="text" name="lastname" value="{{ user.last_name }}" autocomplete="off"></td>
+                </tr>
+                <tr>
+                <td>Новый пароль</td><td><input type="password" name="password" autocomplete="off"></td>
+                </tr>
+                </table>
+                <input type="submit" value="Сохранить">
+            </form>
+{% endblock %}

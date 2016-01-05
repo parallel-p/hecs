@@ -5,3 +5,6 @@ class SignupForm(forms.Form):
 
 class LoginForm(forms.Form):
     pass
+
+class SettingsForm(forms.Form):
+    pass
