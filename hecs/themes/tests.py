@@ -17,7 +17,7 @@ class TestSignup(TestCase):
         self.factory = RequestFactory()
     
     def test_common(self):
-        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'firstname': 'f', 'lastname': 'l'})
+        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'password_1': 'p', 'firstname': 'f', 'lastname': 'l'})
         request.user = AnonymousUser()
         add_session_to_request(request)
         signup_page(request)
@@ -29,14 +29,44 @@ class TestSignup(TestCase):
         self.assertEqual(response.url, '/')
     
     def test_login_busy(self):
-        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'firstname': 'f', 'lastname': 'l'})
-        request.user = AnonymousUser()
-        add_session_to_request(request)
-        signup_page(request)
-        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'firstname': 'f', 'lastname': 'l'})
+        User.objects.create_user('l', password='p', first_name='f', last_name='l').save()
+        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'password_1': 'p', 'firstname': 'f1', 'lastname': 'l1'})
         request.user = AnonymousUser()
         add_session_to_request(request)
         self.assertEqual(signup_page(request).url.split('?')[-1], 'login_used')
+
+    def test_missing(self):
+        request = self.factory.post('/signup', {'login': '', 'password': 'p', 'password_1': 'p', 'firstname': 'f', 'lastname': 'l'})
+        request.user = AnonymousUser()
+        add_session_to_request(request)
+        self.assertEqual(signup_page(request).url.split('?')[-1], 'missing')
+
+        request = self.factory.post('/signup', {'login': 'l', 'password': '', 'password_1': 'p', 'firstname': 'f', 'lastname': 'l'})
+        request.user = AnonymousUser()
+        add_session_to_request(request)
+        self.assertEqual(signup_page(request).url.split('?')[-1], 'missing')
+
+        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'password_1': '', 'firstname': 'f', 'lastname': 'l'})
+        request.user = AnonymousUser()
+        add_session_to_request(request)
+        self.assertEqual(signup_page(request).url.split('?')[-1], 'missing')
+
+        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'password_1': 'p', 'firstname': '', 'lastname': 'l'})
+        request.user = AnonymousUser()
+        add_session_to_request(request)
+        self.assertEqual(signup_page(request).url.split('?')[-1], 'missing')
+
+        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'password_1': 'p', 'firstname': 'f', 'lastname': ''})
+        request.user = AnonymousUser()
+        add_session_to_request(request)
+        self.assertEqual(signup_page(request).url.split('?')[-1], 'missing')
+
+    def test_passwords_not_match(self):
+        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'password_1': 'q', 'firstname': 'f', 'lastname': 'l'})
+        request.user = AnonymousUser()
+        add_session_to_request(request)
+        self.assertEqual(signup_page(request).url.split('?')[-1], 'passwords_not_match')
+
         
 class TestLogin(TestCase):
     
@@ -44,10 +74,7 @@ class TestLogin(TestCase):
         self.factory = RequestFactory()
     
     def test_common(self):
-        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'firstname': 'f', 'lastname': 'l'})
-        request.user = AnonymousUser()
-        add_session_to_request(request)
-        signup_page(request)
+        User.objects.create_user('l', password='p', first_name='f', last_name='l').save()
         request = self.factory.post('/login', {'login': 'l', 'password': 'p'})
         request.user = AnonymousUser()
         add_session_to_request(request)
@@ -56,10 +83,7 @@ class TestLogin(TestCase):
         
     
     def test_wrong_pass(self):
-        request = self.factory.post('/signup', {'login': 'l', 'password': 'p', 'firstname': 'f', 'lastname': 'l'})
-        request.user = AnonymousUser()
-        add_session_to_request(request)
-        signup_page(request)
+        User.objects.create_user('l', password='p', first_name='f', last_name='l').save()
         request = self.factory.post('/login', {'login': 'l', 'password': 'not_p'})
         request.user = AnonymousUser()
         add_session_to_request(request)

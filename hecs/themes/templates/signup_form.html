@@ -10,9 +10,9 @@
             <div class="hexagon hex_yellow"><div class="hexagon_text"><table><tr><td>
                 <b>Регистрация</b>
             </td></tr></table></div></div>
-            {% if login_used or missing %}
+            {% if login_used or missing or passwords_not_match %}
                 <div class="hexagon hex_red"><div class="hexagon_text"><table><tr><td>
-                    {% if login_used %}Логин уже используется{%else%}Все поля обязательны к заполнению{%endif%}
+                    {% if login_used %}Логин уже используется{%elif missing%}Все поля обязательны к заполнению{%else%}Пароли не совпадают{%endif%}
                 </td></tr></table></div></div>
             {% else %}
                 <div class="hexagon"></div>
@@ -51,6 +51,9 @@
                         </tr>
                         <tr>
                         <td>Пароль</td><td><input type="password" name="password"></td>
+                        </tr>
+                        <tr>
+                        <td>Подтверждение</td><td><input type="password" name="password_1"></td>
                         </tr>
                         </table>
                         <input type="submit" value="Отправить">
