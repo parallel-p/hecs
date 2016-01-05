@@ -42,6 +42,13 @@ body {
     width: 95%;
 }
 
+.hexagon_button_text {
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 11pt;
+}
+
 .hex_left {
     margin-left:66px;
 }
@@ -49,6 +56,10 @@ body {
 .hexagon.hex_link:hover{background-color: black; color: white;}
 .hexagon.hex_link:hover:before{border-bottom: 30px solid black;}
 .hexagon.hex_link:hover:after{border-top: 30px solid black;}
+
+.hex_button{background-color: #0f0;}
+.hex_button:before{border-bottom: 30px solid #0f0;}
+.hex_button:after{border-top: 30px solid #0f0;}
 
 .hex_str{background-color: #96a;}
 .hex_str:before{border-bottom: 30px solid #96a;}
