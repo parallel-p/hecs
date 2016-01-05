@@ -8,3 +8,6 @@ class LoginForm(forms.Form):
 
 class SettingsForm(forms.Form):
     pass
+
+class BlankForm(forms.Form):
+    pass
