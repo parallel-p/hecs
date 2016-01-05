@@ -103,8 +103,8 @@ def settings_page(request):
     else:
         return render(request, 'settings_form.html', {'user': request.user, 'missing': 'missing' in request.GET})
 
-def blank_page(request, user_id):
-    user = get_object_or_404(User, id=user_id)
+def blank_page(request):
+    user = request.user
     themes = list(Theme.objects.all())
     forms = list(Blank.objects.filter(user=user).all())
 
@@ -137,4 +137,4 @@ def blank_page(request, user_id):
     marks.sort()
     return render(request, 'blank.html', {'marks': marks,
                                           'lst': ['', '1', '2', '3', '4', '5'],
-                                          'id': user_id})
+                                          'id': user.id})
