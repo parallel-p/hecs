@@ -51,6 +51,8 @@ def signup_page(request):
         return redirect('/')
     if request.method == 'POST':
         form = SignupForm(request.POST)
+        if not (form.data['login'] and form.data['password'] and form.data['firstname'] and form.data['lastname']):
+            return redirect('/signup?missing')
         try:
             user = User.objects.create_user(form.data['login'], password=form.data['password'], first_name=form.data['firstname'], last_name=form.data['lastname'])
             user.save()
@@ -60,7 +62,7 @@ def signup_page(request):
         login(request, user)
         return redirect('/')
     else:
-        return render(request, 'signup_form.html', {'login_used': 'login_used' in request.GET})
+        return render(request, 'signup_form.html', {'login_used': 'login_used' in request.GET, 'missing': 'missing' in request.GET})
     
 def login_page(request):
     if request.user.is_authenticated():
