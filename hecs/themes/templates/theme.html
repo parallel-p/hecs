@@ -9,7 +9,7 @@
         <img src="{{ references.0.group.icon }}">{{ group_name }} <br>
 
         {% for reference in references %}
-            <text class="{{ reference.target.color }}">{{ reference.target.name }}</text> <a href="{{ reference.href }}">{{ reference.name }}</a> <br>
+            <span class="{{ reference.target.color }}">{{ reference.target.name }}</span> <a href="{{ reference.href }}">{{ reference.name }}</a> <br>
         {% endfor %}
     {% endfor %}
 {% endblock %}
