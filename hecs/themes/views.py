@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Theme, Reference
+from django.contrib.auth.models import User
 
 HOMEPAGE_ROWS = 10
 HOMEPAGE_COLS = 16
@@ -27,4 +28,14 @@ def theme_page(request, theme_id):
 
     return render(request, 'theme.html', {'name': theme.name,
                                           'groups': sorted(groups.items(), key=lambda x: x[0])})
+
+
+def profile_page(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    top_string = user.username
+    if user.first_name != "" or user.last_name != "":
+        top_string += " (" + user.last_name + (" " if user.last_name != "" and user.first_name != "" else "") + user.first_name + ")"
+    return render(request, 'profile.html', {'user': user,
+                                            'top_string': top_string,
+                                            'is_online': request.user.is_authenticated()})
 

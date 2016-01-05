@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>{{user.username}}</title>
+{% endblock %}
+
+{% block body %}
+    <h1>{{top_string}}</h1>
+    <div class="profile_hex_container">
+        <div class="hexagon_big hex_big_light_blue">
+            <div class="hexagon_text">
+                <br><b>Зарегистрирован</b><br>
+                {{ user.date_joined }}
+            </div>
+        </div>
+        <div class="hexagon_big hex_big_yellow">
+            <div class="hexagon_text">
+            </div>
+        </div>
+        {% if is_online %}
+            <div class="hexagon_big hex_big_green hex_big_left">
+                <div class="hexagon_text">
+                    <br><br>Онлайн
+                </div>
+            </div>
+        {% else %}
+            <div class="hexagon_big hex_big_red hex_big_left">
+                <div class="hexagon_text">
+                    <br><br>Оффлайн
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

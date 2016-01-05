@@ -2,7 +2,7 @@ body {
     background: #eee; /* Цвет фона */
 }
 
-.hex_container {
+.home_hex_container {
     width: 2132px;
 }
 
@@ -35,10 +35,6 @@ body {
     border-top: 30px solid white;
 }
 
-.hexagon.left {
-    margin-left:62px;
-}
-
 .hexagon_text {
     text-align: center;
     font-family: sans-serif;
@@ -46,9 +42,8 @@ body {
     width: 95%;
 }
 
-
 .hex_left {
-    margin-left:65px;
+    margin-left:66px;
 }
 
 .hexagon.hex_link:hover{background-color: black; color: white;}
@@ -106,3 +101,65 @@ body {
 .hex_alg{background-color: #fc6;}
 .hex_alg:before{border-bottom: 30px solid #fc6;}
 .hex_alg:after{border-top: 30px solid #fc6;}
+
+
+.profile_hex_container {
+    width: 500px;
+}
+
+.hexagon_big{
+    float:left;
+    position: relative;
+    width: 165px;
+    height: 90px;
+    margin: 40px 4px 5px 4px;
+    background-color: white;
+    color: black;
+}
+
+.hexagon_big:before,
+.hexagon_big:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-left: 82px solid transparent;
+    border-right: 82px solid transparent;
+}
+
+.hexagon_big:before {
+    bottom: 100%;
+    border-bottom: 40px solid white;
+}
+
+.hexagon_big:after {
+    top: 100%;
+    border-top: 40px solid white;
+}
+
+.hexagon_big_text {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 12pt;
+    width: 95%;
+}
+
+
+.hex_big_left {
+    margin-left:89px;
+}
+
+.hex_big_light_blue{background-color: #adf;}
+.hex_big_light_blue:before{border-bottom: 40px solid #adf;}
+.hex_big_light_blue:after{border-top: 40px solid #adf;}
+
+.hex_big_yellow{background-color: #ff9;}
+.hex_big_yellow:before{border-bottom: 40px solid #ff9;}
+.hex_big_yellow:after{border-top: 40px solid #ff9;}
+
+.hex_big_green{background-color: #7f7;}
+.hex_big_green:before{border-bottom: 40px solid #7f7;}
+.hex_big_green:after{border-top: 40px solid #7f7;}
+
+.hex_big_red{background-color: #f77;}
+.hex_big_red:before{border-bottom: 40px solid #f77;}
+.hex_big_red:after{border-top: 40px solid #f77;}
