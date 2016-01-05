@@ -5,9 +5,38 @@
 {% endblock %}
 
 {% block body %}
-        {% if missing %}
-        <p>Все поля должны быть заполнены</p>
-        {% endif %}
+        <div class="login_hex_container">
+            <div class="hexagon hex_left"></div>
+            <div class="hexagon hex_yellow"><div class="hexagon_text"><table><tr><td>
+                <b>Настройки</b>
+            </td></tr></table></div></div>
+            {% if missing %}
+                <div class="hexagon hex_red"><div class="hexagon_text"><table><tr><td>
+                    Имя и фамилия должны быть заполнены
+                </td></tr></table></div></div>
+            {% else %}
+                <div class="hexagon"></div>
+            {% endif %}
+            <div class="hexagon"></div>
+
+            <div class="hexagon"></div>
+            <div class="hexagon_invisible"></div>
+            <div class="hexagon_invisible"></div>
+            <div class="hexagon_invisible"></div>
+            <div class="hexagon"></div>
+
+            <div class="hexagon hex_left"></div>
+            <div class="hexagon_invisible"></div>
+            <div class="hexagon_invisible"></div>
+            <div class="hexagon"></div>
+
+            <div class="hexagon_invisible"></div>
+            <div class="hexagon"><div class="hexagon_text"></div></div></a>
+            <a href="/profile/{{ user.id }}"><div class="hexagon hex_button hex_link"><div class="hexagon_text"><table><tr><td><b>Назад</b></td></tr></table></div></div></a>
+            <div class="hexagon"></div>
+            <div class="hexagon_invisible"></div>
+        <div class="login_input_position">
+            <table width="254"><tr><td>
         <form action="/settings" method="post">
                 {% csrf_token %}
                 <table>
@@ -23,4 +52,7 @@
                 </table>
                 <input type="submit" value="Сохранить">
             </form>
+                </td></tr></table>
+            </div>
+        </div>
 {% endblock %}

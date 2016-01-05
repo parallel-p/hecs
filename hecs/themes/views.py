@@ -91,11 +91,12 @@ def settings_page(request):
             return redirect('/settings?missing')
         request.user.first_name = form.data['firstname']
         request.user.last_name = form.data['lastname']
+        request.user.save()
         if form.data['password']:
             request.user.set_password(form.data['password'])
-        request.user.save()
-        user = authenticate(username=request.user.username, password=form.data['password'])
-        login(request, user)
+            request.user.save()
+            user = authenticate(username=request.user.username, password=form.data['password'])
+            login(request, user)
         return redirect('/profile/' + str(request.user.id))
     else:
         return render(request, 'settings_form.html', {'user': request.user, 'missing': 'missing' in request.GET})

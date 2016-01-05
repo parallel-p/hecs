@@ -16,6 +16,15 @@ body {
     color: black;
 }
 
+.hexagon_invisible{
+    float:left;
+    position: relative;
+    width: 125px;
+    height: 70px;
+    margin: 30px 2px 5px 2px;
+    background-color: none;
+}
+
 .hexagon:before,
 .hexagon:after {
     content: "";
@@ -59,9 +68,9 @@ body {
     margin-left:66px;
 }
 
-.hex_link:hover .hexagon_big{background-color: black; color: white;}
-.hex_link:hover .hexagon_big:before{border-bottom: 40px solid black;}
-.hex_link:hover .hexagon_big:after{border-top: 40px solid black;}
+.hex_link:hover .hex_big{background-color: black; color: white;}
+.hex_link:hover .hex_big:before{border-bottom: 40px solid black;}
+.hex_link:hover .hex_big:after{border-top: 40px solid black;}
 
 .hexagon.hex_link:hover{background-color: black; color: white;}
 .hexagon.hex_link:hover:before{border-bottom: 30px solid black;}
@@ -70,6 +79,14 @@ body {
 .hex_button{background-color: #0f0;}
 .hex_button:before{border-bottom: 30px solid #0f0;}
 .hex_button:after{border-top: 30px solid #0f0;}
+
+.hex_red{background-color: #f55;}
+.hex_red:before{border-bottom: 30px solid #f55;}
+.hex_red:after{border-top: 30px solid #f55;}
+
+.hex_yellow{background-color: #ff5;}
+.hex_yellow:before{border-bottom: 30px solid #ff5;}
+.hex_yellow:after{border-top: 30px solid #ff5;}
 
 .hex_str{background-color: #759;}
 .hex_str:before{border-bottom: 30px solid #759;}
@@ -129,36 +146,27 @@ body {
     width: 500px;
 }
 
-.hexagon_big{
-    float:left;
-    position: relative;
+.hex_big{
     width: 165px;
     height: 90px;
     margin: 40px 4px 5px 4px;
-    background-color: white;
-    color: black;
 }
 
-.hexagon_big:before,
-.hexagon_big:after {
-    content: "";
-    position: absolute;
-    width: 0;
+.hex_big:before,
+.hex_big:after {
     border-left: 82px solid transparent;
     border-right: 82px solid transparent;
 }
 
-.hexagon_big:before {
-    bottom: 100%;
+.hex_big:before {
     border-bottom: 40px solid white;
 }
 
-.hexagon_big:after {
-    top: 100%;
+.hex_big:after {
     border-top: 40px solid white;
 }
 
-.hexagon_big_text {
+.hex_big_text {
     text-align: center;
     font-family: sans-serif;
     font-size: 12pt;
@@ -167,7 +175,7 @@ body {
 
 
 .hex_big_left {
-    margin-left:89px;
+    margin-left:91px;
 }
 
 .hex_big_light_blue{background-color: #adf;}
@@ -193,3 +201,18 @@ body {
 .sis_ref{color:gold}
 .target{text-transform:uppercase;font-size:1.2em;padding-right:5px;}
 .ref_group{margin-bottom:7px;margin-top:25px;}
+
+
+.login_hex_container {
+    width: 700px;
+}
+
+td input {
+    width: 100%;
+}
+
+.login_input_position {
+    position: absolute;
+    left: 205px;
+    top: 150px;
+}

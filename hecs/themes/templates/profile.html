@@ -7,7 +7,7 @@
 {% block body %}
     <h1>{{top_string}}</h1>
     <div class="profile_hex_container">
-        <div class="hexagon_big hex_big_light_blue">
+        <div class="hexagon hex_big hex_big_light_blue">
             <div class="hexagon_text">
                 <br><b>Зарегистрирован</b><br>
                 {{ user.date_joined }}
@@ -15,7 +15,7 @@
         </div>
         {% if me %}
         <a href="/settings" class="hex_link">
-        <div class="hexagon_big hex_big_yellow">
+        <div class="hexagon hex_big hex_big_yellow">
             <div class="hexagon_text">
                <table><tr><td>
                Настройки
@@ -29,7 +29,7 @@
             </div>
         </div>
         {% endif %}
-        <div class="hexagon_big hex_big_green hex_big_left">
+        <div class="hexagon hex_big hex_big_green hex_big_left">
             <div class="hexagon_text">
             </div>
         </div>
