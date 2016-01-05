@@ -35,7 +35,7 @@ def theme_page(request, theme_id):
 
 def signup_page(request):
     if request.user.is_authenticated():
-        return redirect('/home')
+        return redirect('/')
     if request.method == 'POST':
         form = SignupForm(request.POST)
         try:
@@ -45,19 +45,19 @@ def signup_page(request):
             return redirect('/signup?login_used')
         user = authenticate(username=form.data['login'], password=form.data['password'])
         login(request, user)
-        return redirect('/home')
+        return redirect('/')
     else:
         return render(request, 'signup_form.html', {'login_used': 'login_used' in request.GET})
     
 def login_page(request):
     if request.user.is_authenticated():
-        return redirect('/home')
+        return redirect('/')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         user = authenticate(username=form.data['login'], password=form.data['password'])
         if user is not None:
             login(request, user)
-            return redirect('/home')
+            return redirect('/')
         else:
             return redirect('/login?login_error')
     else:

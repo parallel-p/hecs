@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+    <h2>{{ name }}</h2>
     {% for group_name, references in groups %}
         <img src="{{ references.0.group.icon }}">{{ group_name }} <br>
 
