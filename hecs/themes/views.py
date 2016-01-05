@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Theme, Reference, Blank
+from .models import Theme, Reference, Blank, Comment
 from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate, login, logout
-from .forms import SignupForm, LoginForm, SettingsForm, BlankForm
+from .forms import SignupForm, LoginForm, SettingsForm, BlankForm, CommentForm
 from django.db import IntegrityError
 
 HOMEPAGE_ROWS = 10
@@ -26,6 +26,22 @@ def home_page(request):
 
 def theme_page(request, theme_id):
     theme = get_object_or_404(Theme, pk=theme_id)
+    auth_user = request.user
+    if not auth_user.is_authenticated():
+        auth_user = None
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if not form.data['comment'] or auth_user is None or len(form.data['comment']) > 1000:
+            return redirect('/theme/' + str(theme_id))
+        comment = Comment()
+        comment.message = form.data['comment']
+        comment.user = auth_user
+        comment.theme = theme
+        comment.save()
+        return redirect('/theme/' + str(theme_id))
+
+
     references = list(Reference.objects.filter(theme=theme).all())
     groups = {}
     for reference in references:
@@ -33,9 +49,12 @@ def theme_page(request, theme_id):
             groups[reference.group.name] = []
         groups[reference.group.name].append(reference)
 
+    comments = Comment.objects.filter(theme=theme)
 
-    return render(request, 'theme.html', {'name': theme.name,
-                                          'groups': sorted(groups.items(), key=lambda x: x[0])})
+    return render(request, 'theme.html', {'theme': theme,
+                                          'groups': sorted(groups.items(), key=lambda x: x[0]),
+                                          'auth_user': auth_user,
+                                          'comments': comments})
 
 
 def profile_page(request, user_id):

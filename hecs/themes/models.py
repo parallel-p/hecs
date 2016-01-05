@@ -43,3 +43,11 @@ class Blank(models.Model):
     theme = models.ForeignKey('Theme')
     result = models.CharField(max_length=1)
 
+
+class Comment(models.Model):
+    user = models.ForeignKey(User)
+    theme = models.ForeignKey(Theme)
+    message = models.CharField(max_length=1000)
+    time = models.DateTimeField(auto_now=True)
+    class Meta:
+        ordering = ['-time']

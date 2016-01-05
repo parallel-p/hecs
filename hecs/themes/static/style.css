@@ -216,3 +216,8 @@ td input {
     left: 205px;
     top: 150px;
 }
+
+.comment_field {
+    width: 50%;
+    resize: none;
+}
