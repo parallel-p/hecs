@@ -29,9 +29,21 @@
             </div>
         </div>
         {% endif %}
+        {% if me %}
+        <a href="/blank" class="hex_link">
         <div class="hexagon hex_big hex_big_green hex_big_left">
+            <div class="hexagon_text">
+               <table><tr><td>
+               Анкета
+               </td></tr></table>
+            </div>
+        </div>
+        </a>
+        {% else %}
+        <div class="hexagon_big hex_big_green hex_big_left">
             <div class="hexagon_text">
             </div>
         </div>
+        {% endif %}
     </div>
 {% endblock %}
