@@ -31,11 +31,15 @@
         {% endif %}
 
         {% for row_id, row in rows %}
-            {% for col_id, theme in row %}
+            {% for col_id, theme, solved in row %}
                 {% if theme == None %}
                     <div class="hexagon {% if col_id == 0 and row_id|divisibleby:"2" %} hex_left {% endif %}"></div>
                 {% else %}
-                    <a href="theme/{{ theme.id }}"><div class="hexagon hex_link hex_{{ theme.color }} {% if col_id == 0 and row_id|divisibleby:"2" %} hex_left {% endif %}"><div class="hexagon_text"><table><tr><td>{{ theme.name }}</td></tr></table></div></div></a>
+                    <a href="theme/{{ theme.id }}">
+                    <div class="hexagon hex_link hex_{{ theme.color }} 
+                    {% if col_id == 0 and row_id|divisibleby:"2" %} hex_left {% endif %}
+                    {% if solved %} hex_solved {% endif %}">
+                    <div class="hexagon_text"><table><tr><td>{{ theme.name }}</td></tr></table></div></div></a>
                 {% endif %}
             {% endfor %}
         {% endfor %}
