@@ -1,21 +1,26 @@
+{% extends "base.html" %}
+
 {% block head %}
     <title>Вход</title>
 {% endblock %}
 
 {% block body %}
-        {% if login_error %}
-        <p>Неверный логин или пароль</p>
-        {% endif %}
-        <form action="/login" method="post">
-                {% csrf_token %}
-                <table>
-                <tr>
-                <td>Логин</td><td><input type="text" name="login"></td>
-                </tr>
-                <tr>
-                <td>Пароль</td><td><input type="password" name="password"></td>
-                </tr>
-                </table>
-                <input type="submit" value="Отправить">
-            </form>
+        <div class="login_hex_contaier">
+            <div class="hexagon hex_huge hex_huge_light_blue">
+                <div class="hexagon_text">
+                    <form action="/login" method="post">
+                        {% csrf_token %}
+                        <table>
+                        <tr>
+                        <td>Логин</td><td><input type="text" name="login"></td>
+                        </tr>
+                        <tr>
+                        <td>Пароль</td><td><input type="password" name="password"></td>
+                        </tr>
+                        </table>
+                        <input type="submit" value="Отправить">
+                    </form>
+                </div>
+            </div>
+        </div>
 {% endblock %}
