@@ -54,9 +54,7 @@ def login_page(request):
         return redirect('/home')
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        print(form.data)
         user = authenticate(username=form.data['login'], password=form.data['password'])
-        print(user)
         if user is not None:
             login(request, user)
             return redirect('/home')
