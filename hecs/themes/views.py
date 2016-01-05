@@ -36,6 +36,5 @@ def profile_page(request, user_id):
     if user.first_name != "" or user.last_name != "":
         top_string += " (" + user.last_name + (" " if user.last_name != "" and user.first_name != "" else "") + user.first_name + ")"
     return render(request, 'profile.html', {'user': user,
-                                            'top_string': top_string,
-                                            'is_online': request.user.is_authenticated()})
+                                            'top_string': top_string})
 
