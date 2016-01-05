@@ -6,10 +6,10 @@
 
 {% block body %}
     {% for group_name, references in groups %}
-        <img src="{{ references[0].group.icon }}">{{ group_name }} <br>
+        <img src="{{ references.0.group.icon }}">{{ group_name }} <br>
 
         {% for reference in references %}
-            <text color="{{ reference.target.color }}">{{ reference.target.name }}</text> <a href="{{ reference.href }}">{{ reference.name }}</a>
+            <text class="{{ reference.target.color }}">{{ reference.target.name }}</text> <a href="{{ reference.href }}">{{ reference.name }}</a> <br>
         {% endfor %}
     {% endfor %}
 {% endblock %}
