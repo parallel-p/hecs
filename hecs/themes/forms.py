@@ -11,3 +11,6 @@ class SettingsForm(forms.Form):
 
 class BlankForm(forms.Form):
     pass
+
+class CommentForm(forms.Form):
+    pass

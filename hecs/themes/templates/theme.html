@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block head %}
-    <title>{{name}}</title>
+    <title>{{theme.name}}</title>
 {% endblock %}
 
 {% block body %}
-    <h1>{{ name }}</h1>
+    <h1>{{ theme.name }}</h1>
     {% for group_name, references in groups %}
         <h3 class="ref_group"><img src="/static/img/{{ references.0.group.icon }}"> {{ group_name }} </h3>
 
@@ -13,4 +13,23 @@
             <span class="target {{ reference.target.color }}">{{ reference.target.name }}</span> <a href="{{ reference.href }}">{{ reference.name }}</a> <br>
         {% endfor %}
     {% endfor %}
+    <h2>Комментарии</h2>
+    {% if auth_user == None %}
+        Чтобы оставлять комментарии, необходимо <a href="/login">войти</a>.
+    {% else %}
+        <form action="/theme/{{ theme.id }}/" method="post">
+            {% csrf_token %}
+            <textarea class="comment_field" id="comment" name="comment" rows="5" maxlength="10" required
+                placeholder="{{auth_user.last_name}} {{auth_user.first_name}}, введите ваше сообщение."></textarea><br>
+            <input type="submit" value="Отправить">
+        </form>
+    {% endif %}
+    {% for comment in comments %}
+        <hr>
+        <h3>{{comment.user.last_name}} {{comment.user.first_name}}, {{comment.time}}</h3>
+        {{comment.message}}
+    {% empty %}
+        <br><i>Комментариев пока нет.</i>
+    {% endfor %}
+
 {% endblock %}
