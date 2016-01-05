@@ -15,19 +15,19 @@
         {% endfor %}
     {% endfor %}
     <h2>Предложить материал</h2>
-    {% if auth_user == None %}
-        Чтобы предложить материал, необходимо <a href="/login">войти</a>.
-    {% else %}
-        <form action="/theme/{{ theme.id }}/" method="post">
-            {% csrf_token %}
-            <textarea class="comment_field" id="comment" name="comment" rows="5" required
-                placeholder="{{auth_user.last_name}} {{auth_user.first_name}}, введите ваше сообщение."></textarea><br>
-            <input type="submit" value="Отправить">
-        </form>
-    {% endif %}
+    <form action="/theme/{{ theme.id }}/" method="post">
+        {% csrf_token %}
+        <textarea class="comment_field" id="comment" name="comment" rows="5" required
+            placeholder="Введите ваше сообщение."></textarea><br>
+        <input type="submit" value="Отправить">
+    </form>
     {% for comment in comments %}
         <hr>
+        {% if comment.user.id %}
         <h3>{{comment.user.last_name}} {{comment.user.first_name}}, {{comment.time}}</h3>
+        {% else %}
+        <h3>Аноним, {{comment.time}}</h3>
+        {% endif %}
         {{comment.message}}
     {% empty %}
         <br><i>Предложений пока нет.</i>

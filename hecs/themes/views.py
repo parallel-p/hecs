@@ -36,11 +36,11 @@ def theme_page(request, theme_id):
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
-        if not form.data['comment'] or auth_user is None or len(form.data['comment']) > 1000:
+        if not form.data['comment'] or len(form.data['comment']) > 1000:
             return redirect('/theme/' + str(theme_id))
         comment = Comment()
         comment.message = form.data['comment']
-        comment.user = auth_user
+        comment.user = auth_user or User.objects.get(id=0)
         comment.theme = theme
         comment.save()
         return redirect('/theme/' + str(theme_id))
