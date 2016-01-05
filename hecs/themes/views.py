@@ -1,6 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Theme, Reference
 from django.contrib.auth.models import User
+
+from django.contrib.auth import authenticate, login
+from .forms import SignupForm, LoginForm
+from django.db import IntegrityError
 
 HOMEPAGE_ROWS = 10
 HOMEPAGE_COLS = 16
@@ -38,3 +42,32 @@ def profile_page(request, user_id):
     return render(request, 'profile.html', {'user': user,
                                             'top_string': top_string})
 
+def signup_page(request):
+    if request.user.is_authenticated():
+        return redirect('/')
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        try:
+            user = User.objects.create_user(form.data['login'], password=form.data['password'], first_name=form.data['firstname'], last_name=form.data['lastname'])
+            user.save()
+        except IntegrityError:
+            return redirect('/signup?login_used')
+        user = authenticate(username=form.data['login'], password=form.data['password'])
+        login(request, user)
+        return redirect('/')
+    else:
+        return render(request, 'signup_form.html', {'login_used': 'login_used' in request.GET})
+    
+def login_page(request):
+    if request.user.is_authenticated():
+        return redirect('/')
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        user = authenticate(username=form.data['login'], password=form.data['password'])
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            return redirect('/login?login_error')
+    else:
+        return render(request, 'login_form.html', {'login_error': 'login_error' in request.GET})
