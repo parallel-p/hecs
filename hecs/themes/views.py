@@ -1,3 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Theme, Reference
 
-# Create your views here.
+
+def theme_page(request, theme_id):
+    theme = get_object_or_404(Theme, pk=theme_id)
+    references = list(Reference.objects.filter(theme=theme).all())
+    groups = {}
+    for reference in references:
+        if reference.group.name not in groups.keys():
+            groups[reference.group.name] = []
+        groups[reference.group.name].append(reference)
+
+
+    return render(request, 'theme.html', {'name': theme.name,
+                                          'groups': sorted(groups.items(), key=lambda x: x[0])})
+
