@@ -3,7 +3,7 @@ from .models import Theme, Reference, Blank
 from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate, login, logout
-from .forms import SignupForm, LoginForm, BlankForm
+from .forms import SignupForm, LoginForm, SettingsForm, BlankForm
 from django.db import IntegrityError
 
 HOMEPAGE_ROWS = 10
@@ -43,7 +43,7 @@ def profile_page(request, user_id):
     top_string = user.username
     if user.first_name != "" or user.last_name != "":
         top_string += " (" + user.last_name + (" " if user.last_name != "" and user.first_name != "" else "") + user.first_name + ")"
-    return render(request, 'profile.html', {'user': user,
+    return render(request, 'profile.html', {'user': user, 'me': user == request.user,   
                                             'top_string': top_string})
 
 def signup_page(request):
@@ -82,6 +82,24 @@ def logout_page(request):
     logout(request)
     return redirect('/')
 
+def settings_page(request):
+    if not request.user.is_authenticated():
+        return redirect('/')
+    if request.method == 'POST':
+        form = SettingsForm(request.POST)
+        if not (form.data['firstname'] and form.data['lastname']):
+            return redirect('/settings?missing')
+        request.user.first_name = form.data['firstname']
+        request.user.last_name = form.data['lastname']
+        request.user.save()
+        if form.data['password']:
+            request.user.set_password(form.data['password'])
+            request.user.save()
+            user = authenticate(username=request.user.username, password=form.data['password'])
+            login(request, user)
+        return redirect('/profile/' + str(request.user.id))
+    else:
+        return render(request, 'settings_form.html', {'user': request.user, 'missing': 'missing' in request.GET})
 
 def blank_page(request, user_id):
     user = get_object_or_404(User, id=user_id)
