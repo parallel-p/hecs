@@ -28,7 +28,7 @@ class ReferenceTarget(models.Model):
 
 
 class Reference(models.Model):
-    model = models.ForeignKey('Theme')
+    theme = models.ForeignKey('Theme')
     group = models.ForeignKey('ReferenceGroup')
     target = models.ForeignKey('ReferenceTarget')
     name = models.CharField(max_length=30)
