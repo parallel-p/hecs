@@ -8,17 +8,19 @@
     <form action="/blank" method="post">
         {% csrf_token %}
         {% for mark in marks %}
+            <div class="pad">
             {{ mark.0 }}
-            <select name="{{ mark.0 }}">
-                {% for i in lst %}
-                    {% if i == mark.1 %}
-                        <option selected>{{ i }}</option>
-                    {% else %}
-                        <option>{{ i }}</option>
-                    {% endif %}
-                {% endfor %}
-            </select>
-            <br>
+                <select name="{{ mark.0 }}">
+                    {% for i in lst %}
+                        {% if i == mark.1 %}
+                            <option selected>{{ i }}</option>
+                        {% else %}
+                            <option>{{ i }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <br>
+            </div>
         {% endfor %}
         <input type="submit" value="Отправить" class="button">
     </form>
