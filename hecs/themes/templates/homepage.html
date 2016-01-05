@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="/static/styles.css" type="text/css">
+        <title>hecs.info</title>
+    </head>
+    <body>
+        <div class="hex_container">
+            {% for row_id, row in rows %}
+                {% for col_id, theme in row %}
+                    {% if theme == None %}
+                        <div class="hexagon {% if col_id == 0 and row_id|divisibleby:"2" %} hex_left {% endif %}"></div>
+                    {% else %}
+                        <a href="theme/{{ theme.id }}"><div class="hexagon hex_link hex_{{ theme.color }} {% if col_id == 0 and row_id|divisibleby:"2" %} hex_left {% endif %}"><div class="hexagon_text">{{ theme.name }}</div></div></a>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </body>
+</html>
