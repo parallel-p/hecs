@@ -55,3 +55,4 @@ docs/_build/
 
 # PyBuilder
 target/
+hecs/db.sqlite3
