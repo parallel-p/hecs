@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Theme, Reference
+from .models import Theme, Reference, Blank
 from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate, login, logout
-from .forms import SignupForm, LoginForm
+from .forms import SignupForm, LoginForm, BlankForm
 from django.db import IntegrityError
 
 HOMEPAGE_ROWS = 10
@@ -79,3 +79,40 @@ def login_page(request):
 def logout_page(request):
     logout(request)
     return redirect('/')
+
+
+def blank_page(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    themes = list(Theme.objects.all())
+    forms = list(Blank.objects.filter(user=user).all())
+
+    if request.method == 'POST':
+        form = BlankForm(request.POST)
+
+        for theme in themes:
+            try:
+                blank = get_object_or_404(Blank, user=user, theme=theme)
+            except Exception:
+                blank = Blank()
+                blank.user = user
+                blank.theme = theme
+            blank.result = form.data[theme.name]
+            blank.save()
+
+        return redirect('/')
+
+    marks = []
+
+    for form in forms:
+        mark = (form.theme.name, form.result)
+        marks.append(mark)
+        themes.remove(form.theme)
+
+    for theme in themes:
+        mark = (theme.name, '')
+        marks.append(mark)
+
+    marks.sort()
+    return render(request, 'blank.html', {'marks': marks,
+                                          'lst': ['', '1', '2', '3', '4', '5'],
+                                          'id': user_id})

@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^login$', views.login_page, name='login'),
     url(r'^logout$', views.logout_page, name='logout'),
     url(r'^theme/(?P<theme_id>[0-9]+)/$', views.theme_page),
-    url(r'^profile/(?P<user_id>[0-9]+)/$', views.profile_page)
+    url(r'^profile/(?P<user_id>[0-9]+)/$', views.profile_page),
+    url(r'^blank/(?P<user_id>[0-9]+)/$', views.blank_page),
 ]
