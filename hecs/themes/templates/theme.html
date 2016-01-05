@@ -7,7 +7,7 @@
 {% block body %}
     <h2>{{ name }}</h2>
     {% for group_name, references in groups %}
-        <img src="{{ references.0.group.icon }}">{{ group_name }} <br>
+        <img src="/static/img/{{ references.0.group.icon }}">{{ group_name }} <br>
 
         {% for reference in references %}
             <span class="{{ reference.target.color }}">{{ reference.target.name }}</span> <a href="{{ reference.href }}">{{ reference.name }}</a> <br>
