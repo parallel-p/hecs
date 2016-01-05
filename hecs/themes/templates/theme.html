@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>{{name}}</title>
+{% endblock %}
+
+{% block body %}
+    {% for group_name, references in groups %}
+        <img src="{{ references.0.group.icon }}">{{ group_name }} <br>
+
+        {% for reference in references %}
+            <span class="{{ reference.target.color }}">{{ reference.target.name }}</span> <a href="{{ reference.href }}">{{ reference.name }}</a> <br>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

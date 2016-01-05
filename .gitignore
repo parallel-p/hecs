@@ -60,3 +60,4 @@ hecs/db.sqlite3
 #Other
 .idea*
 *.swp
+.DS_Store
