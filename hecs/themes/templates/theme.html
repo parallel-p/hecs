@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+    <a href="/"><h3>На главную</h3></a>
     <h1>{{ theme.name }}</h1>
     {% for group_name, references in groups %}
         <h3 class="ref_group"><img src="/static/img/{{ references.0.group.icon }}"> {{ group_name }} </h3>
