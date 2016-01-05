@@ -14,9 +14,9 @@
             <span class="target {{ reference.target.color }}">{{ reference.target.name }}</span> <a href="{{ reference.href }}">{{ reference.name }}</a> <br>
         {% endfor %}
     {% endfor %}
-    <h2>Комментарии</h2>
+    <h2>Предложить материал</h2>
     {% if auth_user == None %}
-        Чтобы оставлять комментарии, необходимо <a href="/login">войти</a>.
+        Чтобы предложить материал, необходимо <a href="/login">войти</a>.
     {% else %}
         <form action="/theme/{{ theme.id }}/" method="post">
             {% csrf_token %}
@@ -30,7 +30,7 @@
         <h3>{{comment.user.last_name}} {{comment.user.first_name}}, {{comment.time}}</h3>
         {{comment.message}}
     {% empty %}
-        <br><i>Комментариев пока нет.</i>
+        <br><i>Предложений пока нет.</i>
     {% endfor %}
 
 {% endblock %}
