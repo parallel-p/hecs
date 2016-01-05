@@ -14,6 +14,14 @@
                 <div class="hexagon hex_red"><div class="hexagon_text"><table><tr><td>
                     Имя и фамилия должны быть заполнены
                 </td></tr></table></div></div>
+            {% elif wrong_old_pass %}
+                <div class="hexagon hex_red"><div class="hexagon_text"><table><tr><td>
+                    Старый пароль введен неверно
+                </td></tr></table></div></div>
+            {% elif passwords_not_match%}
+                <div class="hexagon hex_red"><div class="hexagon_text"><table><tr><td>
+                    Пароли не совпадают
+                </td></tr></table></div></div>
             {% else %}
                 <div class="hexagon"></div>
             {% endif %}
@@ -47,7 +55,13 @@
                 <td>Фамилия</td><td><input type="text" name="lastname" value="{{ user.last_name }}" autocomplete="off"></td>
                 </tr>
                 <tr>
+                <td>Старый пароль</td><td><input type="password" name="old_password" autocomplete="off"></td>
+                </tr>
+                <tr>
                 <td>Новый пароль</td><td><input type="password" name="password" autocomplete="off"></td>
+                </tr>
+                <tr>
+                <td>Подтверждение пароля</td><td><input type="password" name="password_1" autocomplete="off"></td>
                 </tr>
                 </table>
                 <input type="submit" value="Сохранить">

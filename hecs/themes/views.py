@@ -99,13 +99,18 @@ def settings_page(request):
         request.user.last_name = form.data['lastname']
         request.user.save()
         if form.data['password']:
+            if authenticate(username=request.user.username, password=form.data['old_password']) is None:
+                return redirect('/settings?wrong_old_pass')
+            if form.data['password'] != form.data['password_1']:
+                return redirect('/settings?passwords_not_match')
             request.user.set_password(form.data['password'])
             request.user.save()
             user = authenticate(username=request.user.username, password=form.data['password'])
             login(request, user)
         return redirect('/profile/' + str(request.user.id))
     else:
-        return render(request, 'settings_form.html', {'user': request.user, 'missing': 'missing' in request.GET})
+        return render(request, 'settings_form.html', {'user': request.user, 'missing': 'missing' in request.GET, 'wrong_old_pass': 'wrong_old_pass' in request.GET, 
+                                                      'passwords_not_match': 'passwords_not_match' in request.GET})
 
 def blank_page(request):
     user = request.user
