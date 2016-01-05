@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>blank</title>
+{% endblock %}
+
+{% block body %}
+    <form action="/blank/{{ id }}/" method="post">
+        {% csrf_token %}
+        {% for mark in marks %}
+            {{ mark.0 }}
+            <select name="{{ mark.0 }}">
+                {% for i in lst %}
+                    {% if i == mark.1 %}
+                        <option selected>{{ i }}</option>
+                    {% else %}
+                        <option>{{ i }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <br>
+        {% endfor %}
+        <input type="submit" value="Отправить" class="button">
+    </form>
+{% endblock %}
