@@ -15,7 +15,9 @@ def home_page(request):
         auth_user = None
     themes = Theme.objects.all()
     solved = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='5').all()}
-    rows = [[row, [[col, None, 0] for col in range(HOMEPAGE_COLS)]] for row in range(HOMEPAGE_ROWS)]
+    rows = []
+    for row in range(HOMEPAGE_ROWS):
+        rows.append([row, [[col, None, 0] for col in range(HOMEPAGE_COLS)]])
     for theme in themes:
         try:
             rows[theme.x][1][theme.y][1] = theme
