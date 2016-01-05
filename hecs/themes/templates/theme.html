@@ -20,7 +20,7 @@
     {% else %}
         <form action="/theme/{{ theme.id }}/" method="post">
             {% csrf_token %}
-            <textarea class="comment_field" id="comment" name="comment" rows="5" maxlength="10" required
+            <textarea class="comment_field" id="comment" name="comment" rows="5" required
                 placeholder="{{auth_user.last_name}} {{auth_user.first_name}}, введите ваше сообщение."></textarea><br>
             <input type="submit" value="Отправить">
         </form>
