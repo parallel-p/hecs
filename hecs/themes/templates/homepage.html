@@ -6,6 +6,30 @@
 
 {% block body %}
     <div class="home_hex_container">
+        {% if auth_user == None %}
+            <a href="/login">
+                <div class="hexagon hex_left hex_link hex_button">
+                    <div class="hexagon_button_text"><br>Вход</div>
+                </div>
+            </a>
+            <a href="/signup">
+                <div class="hexagon hex_link hex_button">
+                    <div class="hexagon_button_text"><br>Регистрация</div>
+                </div>
+            </a>
+        {% else %}
+            <a href="/profile/{{ user.id }}">
+                <div class="hexagon hex_left hex_link hex_button">
+                    <div class="hexagon_button_text"><br>{{ user.username }}<br>Профиль</div>
+                </div>
+            </a>
+            <a href="/logout">
+                <div class="hexagon hex_link hex_button">
+                    <div class="hexagon_button_text"><br>Выход</div>
+                </div>
+            </a>
+        {% endif %}
+
         {% for row_id, row in rows %}
             {% for col_id, theme in row %}
                 {% if theme == None %}

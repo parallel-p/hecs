@@ -10,6 +10,9 @@ HOMEPAGE_ROWS = 10
 HOMEPAGE_COLS = 16
 
 def home_page(request):
+    auth_user = request.user
+    if not auth_user.is_authenticated():
+        auth_user = None
     themes = Theme.objects.all()
     rows = [[row, [[col, None] for col in range(HOMEPAGE_COLS)]] for row in range(HOMEPAGE_ROWS)]
     for theme in themes:
@@ -17,7 +20,8 @@ def home_page(request):
             rows[theme.x][1][theme.y][1] = theme
         except IndexError:
             pass
-    return render(request, 'homepage.html', {'rows': rows})
+    rows[0][1] = rows[0][1][2:]
+    return render(request, 'homepage.html', {'rows': rows, 'auth_user': auth_user})
 
 
 def theme_page(request, theme_id):
