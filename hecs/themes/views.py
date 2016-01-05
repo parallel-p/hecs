@@ -51,6 +51,8 @@ def signup_page(request):
         return redirect('/')
     if request.method == 'POST':
         form = SignupForm(request.POST)
+        if not form.data['login']:
+            return redirect('/signup')
         try:
             user = User.objects.create_user(form.data['login'], password=form.data['password'], first_name=form.data['firstname'], last_name=form.data['lastname'])
             user.save()
