@@ -16,6 +16,15 @@ body {
     color: black;
 }
 
+.hexagon_invisible{
+    float:left;
+    position: relative;
+    width: 125px;
+    height: 70px;
+    margin: 30px 2px 5px 2px;
+    background-color: none;
+}
+
 .hexagon:before,
 .hexagon:after {
     content: "";
@@ -66,6 +75,14 @@ body {
 .hex_button{background-color: #0f0;}
 .hex_button:before{border-bottom: 30px solid #0f0;}
 .hex_button:after{border-top: 30px solid #0f0;}
+
+.hex_red{background-color: #f55;}
+.hex_red:before{border-bottom: 30px solid #f55;}
+.hex_red:after{border-top: 30px solid #f55;}
+
+.hex_yellow{background-color: #ff5;}
+.hex_yellow:before{border-bottom: 30px solid #ff5;}
+.hex_yellow:after{border-top: 30px solid #ff5;}
 
 .hex_str{background-color: #759;}
 .hex_str:before{border-bottom: 30px solid #759;}
@@ -182,35 +199,16 @@ body {
 .ref_group{margin-bottom:7px;margin-top:25px;}
 
 
-
 .login_hex_container {
-    width: 500px;
+    width: 700px;
 }
 
-.hex_huge{
-    width: 254px;
-    height: 140px;
-    margin: 80px 4px 5px 4px;
+td input {
+    width: 100%;
 }
 
-.hex_huge:before,
-.hex_huge:after {
-    border-left: 127px solid transparent;
-    border-right:127px solid transparent;
+.login_input_position {
+    position: absolute;
+    left: 205px;
+    top: 150px;
 }
-
-.hex_huge:before {
-    border-bottom: 80px solid white;
-}
-
-.hex_huge:after {
-    border-top: 80px solid white;
-}
-
-.hex_huge_left {
-    margin-left:182px;
-}
-
-.hex_huge_light_blue{background-color: #adf;}
-.hex_huge_light_blue:before{border-bottom: 80px solid #adf;}
-.hex_huge_light_blue:after{border-top: 80px solid #adf;}
