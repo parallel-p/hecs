@@ -174,3 +174,11 @@ body {
 .hex_big_red{background-color: #f77;}
 .hex_big_red:before{border-bottom: 40px solid #f77;}
 .hex_big_red:after{border-top: 40px solid #f77;}
+
+.informatics_ref{color:saddlebrown}
+.foxford_ref{color:darkorange}
+.habr_ref{color:#36f}
+.emaxx_ref{color:darkgreen}
+.sis_ref{color:gold}
+.target{text-transform:uppercase;font-size:1.2em;padding-right:5px;}
+.ref_group{margin-bottom:7px;margin-top:25px;}
