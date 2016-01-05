@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Theme, Reference
 from django.contrib.auth.models import User
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import SignupForm, LoginForm
 from django.db import IntegrityError
 
@@ -71,3 +71,7 @@ def login_page(request):
             return redirect('/login?login_error')
     else:
         return render(request, 'login_form.html', {'login_error': 'login_error' in request.GET})
+    
+def logout_page(request):
+    logout(request)
+    return redirect('/')
