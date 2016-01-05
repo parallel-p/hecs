@@ -14,10 +14,12 @@ def home_page(request):
     if not auth_user.is_authenticated():
         auth_user = None
     themes = Theme.objects.all()
-    rows = [[row, [[col, None] for col in range(HOMEPAGE_COLS)]] for row in range(HOMEPAGE_ROWS)]
+    solved = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='5').all()}
+    rows = [[row, [[col, None, 0] for col in range(HOMEPAGE_COLS)]] for row in range(HOMEPAGE_ROWS)]
     for theme in themes:
         try:
             rows[theme.x][1][theme.y][1] = theme
+            rows[theme.x][1][theme.y][2] = (theme.id in solved)
         except IndexError:
             pass
     rows[0][1] = rows[0][1][2:]

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <form action="/blank/{{ id }}/" method="post">
+    <form action="/blank" method="post">
         {% csrf_token %}
         {% for mark in marks %}
             {{ mark.0 }}

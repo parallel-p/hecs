@@ -68,6 +68,10 @@ body {
     margin-left:66px;
 }
 
+.hex_solved{background-color: #333 !important;}
+.hex_solved:before{border-bottom: 30px solid #333 !important;}
+.hex_solved:after{border-top: 30px solid #333 !important;}
+
 .hex_link:hover .hex_big{background-color: black; color: white;}
 .hex_link:hover .hex_big:before{border-bottom: 40px solid black;}
 .hex_link:hover .hex_big:after{border-top: 40px solid black;}
