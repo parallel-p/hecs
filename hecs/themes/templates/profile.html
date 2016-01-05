@@ -7,12 +7,15 @@
 {% block body %}
     <h1>{{top_string}}</h1>
     <div class="profile_hex_container">
+        <a href="/" class="hex_link">
         <div class="hexagon hex_big hex_big_light_blue">
             <div class="hexagon_text">
-                <br><b>Зарегистрирован</b><br>
-                {{ user.date_joined }}
+               <table><tr><td>
+               На главную
+               </td></tr></table>
             </div>
         </div>
+        </a>
         {% if me %}
         <a href="/settings" class="hex_link">
         <div class="hexagon hex_big hex_big_yellow">
