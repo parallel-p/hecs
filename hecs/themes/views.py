@@ -132,6 +132,8 @@ def settings_page(request):
                                                       'passwords_not_match': 'passwords_not_match' in request.GET})
 
 def blank_page(request):
+    if not request.user.is_authenticated():
+        return redirect('/')
     user = request.user
     themes = list(Theme.objects.all())
     forms = list(Blank.objects.filter(user=user).all())
