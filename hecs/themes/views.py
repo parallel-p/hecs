@@ -151,18 +151,24 @@ def blank_page(request):
 
         return redirect('/')
 
-    marks = []
+    marks = {}
 
     for form in forms:
-        mark = (form.theme.name, form.result)
-        marks.append(mark)
+        marks[form.theme.name] = form.result
         themes.remove(form.theme)
 
+    themes = Theme.objects.all()
+    rows = []
+    for row in range(HOMEPAGE_ROWS):
+        rows.append([row, [[col, None, 0] for col in range(HOMEPAGE_COLS)]])
     for theme in themes:
-        mark = (theme.name, '')
-        marks.append(mark)
+        try:
+            rows[theme.x][1][theme.y][1] = theme
+            rows[theme.x][1][theme.y][2] = marks[theme.name]
+        except IndexError:
+            pass
+    rows[0][1] = rows[0][1][2:]
 
-    marks.sort()
-    return render(request, 'blank.html', {'marks': marks,
-                                          'lst': ['', '1', '2', '3', '4', '5'],
-                                          'id': user.id})
+    return render(request, 'blank.html', {'lst': ['', '1', '2', '3', '4', '5'],
+                                          'id': user.id,
+                                          'rows': rows})

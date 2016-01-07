@@ -7,21 +7,35 @@
 {% block body %}
     <form action="/blank" method="post">
         {% csrf_token %}
-        {% for mark in marks %}
-            <div class="pad">
-            {{ mark.0 }}
-                <select name="{{ mark.0 }}">
-                    {% for i in lst %}
-                        {% if i == mark.1 %}
-                            <option selected>{{ i }}</option>
-                        {% else %}
-                            <option>{{ i }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-                <br>
+        <div class="home_hex_container">
+            <div class="hexagon hex_left hex_link hex_button">
+                <div class="hexagon_button_text">
+                    <br>
+                    <input type="submit" value="Отправить" class="hexagon_button_text">
+                </div>
             </div>
-        {% endfor %}
-        <input type="submit" value="Отправить" class="button">
+            <div class="hexagon divisibleby"></div>
+            {% for row_id, row in rows %}
+                {% for col_id, theme, c, solved in row %}
+                    {% if theme == None %}
+                        <div class="hexagon {% if col_id == 0 and row_id|divisibleby:"2" %} hex_left {% endif %}"></div>
+                    {% else %}
+                        <div class="hexagon hex_{{ theme.color }}
+                        {% if col_id == 0 and row_id|divisibleby:"2" %} hex_left {% endif %}
+                        {% if solved %} hex_solved {% endif %}">
+                        <div class="hexagon_text"><table><tr><td>{{ theme.name }}<br><select name="{{ theme.name }}">
+                            {% for i in lst %}
+                                {% if i == c %}
+                                    <option selected>{{ i }}</option>
+                                {% else %}
+                                    <option>{{ i }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select></td></tr></table></div></div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+        </div>
     </form>
 {% endblock %}
