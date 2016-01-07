@@ -226,6 +226,11 @@ td input {
     resize: none;
 }
 
-.pad {
+.pad td {
     padding: 8px;
+}
+.pad select
+{
+    margin-left:30px;
+    padding-left:10px;
 }

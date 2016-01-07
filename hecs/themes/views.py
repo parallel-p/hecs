@@ -146,7 +146,7 @@ def blank_page(request):
                 blank = Blank()
                 blank.user = user
                 blank.theme = theme
-            blank.result = form.data[theme.name]
+            blank.result = form.data.get('t' + str(theme.id), 0)
             blank.save()
 
         return redirect('/')
@@ -154,12 +154,15 @@ def blank_page(request):
     marks = []
 
     for form in forms:
-        mark = (form.theme.name, form.result)
+        if form.theme.name == 'START':
+            continue
+        mark = (form.theme.name, 't' + str(form.theme.id), form.result)
         marks.append(mark)
         themes.remove(form.theme)
-
     for theme in themes:
-        mark = (theme.name, '')
+        if theme.name == 'START':
+            continue
+        mark = (theme.name, 't' + str(theme.id), '')
         marks.append(mark)
 
     marks.sort()
