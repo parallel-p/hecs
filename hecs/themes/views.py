@@ -14,19 +14,22 @@ def home_page(request):
     if not auth_user.is_authenticated():
         auth_user = None
     themes = Theme.objects.all()
-    solved = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='5').all()}
+    solved1 = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='1').all()}
+    solved2 = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='2').all()}
+    solved3 = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='3').all()}
+    solved4 = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='4').all()}
+    solved5 = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='5').all()}
     rows = []
     for row in range(HOMEPAGE_ROWS):
         rows.append([row, [[col, None, 0] for col in range(HOMEPAGE_COLS)]])
     for theme in themes:
         try:
             rows[theme.x][1][theme.y][1] = theme
-            rows[theme.x][1][theme.y][2] = (theme.id in solved)
+            rows[theme.x][1][theme.y][2] = 1 if (theme.id in solved1) else (2 if (theme.id in solved2) else (3 if (theme.id in solved3) else (4 if (theme.id in solved4) else (5 if (theme.id in solved5) else 0))))
         except IndexError:
             pass
     rows[0][1] = rows[0][1][2:]
     return render(request, 'homepage.html', {'rows': rows, 'auth_user': auth_user})
-
 
 def theme_page(request, theme_id):
     theme = get_object_or_404(Theme, pk=theme_id)

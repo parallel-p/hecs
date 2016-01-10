@@ -68,9 +68,29 @@ body {
     margin-left:66px;
 }
 
-.hex_solved{background-color: #333 !important;}
-.hex_solved:before{border-bottom: 30px solid #333 !important;}
-.hex_solved:after{border-top: 30px solid #333 !important;}
+.hex_solved0{opacity: 0.25 !important;}
+.hex_solved0:before{border-bottom: 30px opacity: 0.25 !important;}
+.hex_solved0:after{border-top: 30px opacity: 0.25 !important;}
+
+.hex_solved1{opacity: 0.4 !important;}
+.hex_solved1:before{border-bottom: 30px opacity: 0.4 !important;}
+.hex_solved1:after{border-top: 30px opacity: 0.4 !important;}
+
+.hex_solved2{opacity: 0.55 !important;}
+.hex_solved2:before{border-bottom: 30px opacity: 0.55 !important;}
+.hex_solved2:after{border-top: 30px opacity: 0.55 !important;}
+
+.hex_solved3{opacity: 0.7 !important;}
+.hex_solved3:before{border-bottom: 30px opacity: 0.7 !important;}
+.hex_solved3:after{border-top: 30px opacity: 0.7 !important;}
+
+.hex_solved4{opacity: 0.85 !important;}
+.hex_solved4:before{border-bottom: 30px opacity: 0.85 !important;}
+.hex_solved4:after{border-top: 30px opacity: 0.85 !important;}
+
+.hex_solved5{opacity: 1 !important;}
+.hex_solved5:before{border-bottom: 30px opacity: 1 !important;}
+.hex_solved5:after{border-top: 30px opacity: 1 !important;}
 
 .hex_link:hover .hex_big{background-color: black; color: white;}
 .hex_link:hover .hex_big:before{border-bottom: 40px solid black;}
