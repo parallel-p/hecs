@@ -14,19 +14,23 @@ def home_page(request):
     if not auth_user.is_authenticated():
         auth_user = None
     themes = Theme.objects.all()
-    solved = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='5').all()}
+    solved = [0, 0, 0, 0, 0, 0]
+    for i in range(1, 6):
+        solved[i] = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result=i)}
     rows = []
     for row in range(HOMEPAGE_ROWS):
         rows.append([row, [[col, None, 0] for col in range(HOMEPAGE_COLS)]])
     for theme in themes:
         try:
             rows[theme.x][1][theme.y][1] = theme
-            rows[theme.x][1][theme.y][2] = (theme.id in solved)
+            rows[theme.x][1][theme.y][2] = 0
+            for i in range(1, 6):
+                if theme.id in solved[i]:
+                    rows[theme.x][1][theme.y][2] = i
         except IndexError:
             pass
     rows[0][1] = rows[0][1][2:]
     return render(request, 'homepage.html', {'rows': rows, 'auth_user': auth_user})
-
 
 def theme_page(request, theme_id):
     theme = get_object_or_404(Theme, pk=theme_id)
@@ -36,11 +40,11 @@ def theme_page(request, theme_id):
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
-        if not form.data['comment'] or auth_user is None or len(form.data['comment']) > 1000:
+        if not form.data['comment'] or len(form.data['comment']) > 1000:
             return redirect('/theme/' + str(theme_id))
         comment = Comment()
         comment.message = form.data['comment']
-        comment.user = auth_user
+        comment.user = auth_user or User.objects.get(id=0)
         comment.theme = theme
         comment.save()
         return redirect('/theme/' + str(theme_id))
@@ -132,6 +136,8 @@ def settings_page(request):
                                                       'passwords_not_match': 'passwords_not_match' in request.GET})
 
 def blank_page(request):
+    if not request.user.is_authenticated():
+        return redirect('/')
     user = request.user
     themes = list(Theme.objects.all())
     forms = list(Blank.objects.filter(user=user).all())
@@ -146,7 +152,7 @@ def blank_page(request):
                 blank = Blank()
                 blank.user = user
                 blank.theme = theme
-            blank.result = form.data[theme.name]
+            blank.result = form.data.get('t' + str(theme.id), 0)
             blank.save()
 
         return redirect('/')
@@ -154,12 +160,15 @@ def blank_page(request):
     marks = []
 
     for form in forms:
-        mark = (form.theme.name, form.result)
+        if form.theme.name == 'START':
+            continue
+        mark = (form.theme.name, 't' + str(form.theme.id), form.result)
         marks.append(mark)
         themes.remove(form.theme)
-
     for theme in themes:
-        mark = (theme.name, '')
+        if theme.name == 'START':
+            continue
+        mark = (theme.name, 't' + str(theme.id), '')
         marks.append(mark)
 
     marks.sort()

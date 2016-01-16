@@ -7,21 +7,24 @@
 {% block body %}
     <form action="/blank" method="post">
         {% csrf_token %}
+        <table>
         {% for mark in marks %}
-            <div class="pad">
-            {{ mark.0 }}
-                <select name="{{ mark.0 }}">
+            <tr class="pad">
+            <td>{{ mark.0 }}</td>
+            <td>
+                <select name="{{ mark.1 }}">
                     {% for i in lst %}
-                        {% if i == mark.1 %}
+                        {% if i == mark.2 %}
                             <option selected>{{ i }}</option>
                         {% else %}
                             <option>{{ i }}</option>
                         {% endif %}
                     {% endfor %}
                 </select>
-                <br>
-            </div>
+                </td>
+            </tr>
         {% endfor %}
+        </table>
         <input type="submit" value="Отправить" class="button">
     </form>
 {% endblock %}

@@ -51,3 +51,6 @@ class Comment(models.Model):
     time = models.DateTimeField(auto_now=True)
     class Meta:
         ordering = ['-time']
+        
+    def __str__(self):
+        return (str(self.user) or 'Anonymous') + ': ' + self.message[:200]
