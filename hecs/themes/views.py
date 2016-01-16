@@ -14,18 +14,19 @@ def home_page(request):
     if not auth_user.is_authenticated():
         auth_user = None
     themes = Theme.objects.all()
-    solved1 = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='1').all()}
-    solved2 = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='2').all()}
-    solved3 = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='3').all()}
-    solved4 = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='4').all()}
-    solved5 = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result='5').all()}
+    solved = [0, 0, 0, 0, 0, 0]
+    for i in range(1, 6):
+        solved[i] = {blank.theme.id for blank in Blank.objects.filter(user=auth_user).filter(result=i)}
     rows = []
     for row in range(HOMEPAGE_ROWS):
         rows.append([row, [[col, None, 0] for col in range(HOMEPAGE_COLS)]])
     for theme in themes:
         try:
             rows[theme.x][1][theme.y][1] = theme
-            rows[theme.x][1][theme.y][2] = 1 if (theme.id in solved1) else (2 if (theme.id in solved2) else (3 if (theme.id in solved3) else (4 if (theme.id in solved4) else (5 if (theme.id in solved5) else 0))))
+            rows[theme.x][1][theme.y][2] = 0
+            for i in range(1, 6):
+                if theme.id in solved[i]:
+                    rows[theme.x][1][theme.y][2] = i
         except IndexError:
             pass
     rows[0][1] = rows[0][1][2:]
