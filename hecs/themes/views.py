@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Theme, Reference, Blank, Comment
 from django.contrib.auth.models import User
-
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import SignupForm, LoginForm, SettingsForm, BlankForm, CommentForm
 from django.db import IntegrityError
+from django.views.decorators.csrf import csrf_exempt
 
 HOMEPAGE_ROWS = 10
 HOMEPAGE_COLS = 16
@@ -59,9 +60,20 @@ def theme_page(request, theme_id):
 
     comments = Comment.objects.filter(theme=theme)
 
+    if auth_user:
+        blank = Blank.objects.filter(user=auth_user, theme=theme).all()
+        if blank:
+            my_mark = blank[0].result
+        else:
+            my_mark = ''
+    else:
+        my_mark = ''
+
     return render(request, 'theme.html', {'theme': theme,
                                           'groups': sorted(groups.items(), key=lambda x: x[0]),
                                           'auth_user': auth_user,
+                                          'marks': ['', '1', '2', '3', '4', '5'],
+                                          'my_mark': my_mark,
                                           'comments': comments})
 
 
@@ -175,3 +187,18 @@ def blank_page(request):
     return render(request, 'blank.html', {'marks': marks,
                                           'lst': ['', '1', '2', '3', '4', '5'],
                                           'id': user.id})
+
+def change_theme_result(request):
+    if not request.user.is_authenticated():
+        return HttpResponse('Authentication needed')
+    try:
+        theme_id = request.POST['theme']
+        mark = request.POST['mark']
+    except KeyError:
+        return HttpResponse('Not enough parameters')
+    if mark not in '12345':
+        mark = ''
+    blank = get_object_or_404(Blank, theme_id=theme_id, user=request.user)
+    blank.result = mark
+    blank.save()
+    return HttpResponse('OK')

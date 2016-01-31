@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^theme/(?P<theme_id>[0-9]+)/$', views.theme_page),
     url(r'^profile/(?P<user_id>[0-9]+)/$', views.profile_page),
     url(r'^blank$', views.blank_page),
+    url(r'^change_mark$', views.change_theme_result),
 ]

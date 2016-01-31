@@ -5,8 +5,30 @@
 {% endblock %}
 
 {% block body %}
+    <script>
+    function updateMark()
+    {
+        var mark = document.getElementById('mark').value;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '/change_mark', true)
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}")
+        xhr.send('theme={{ theme.id }}&mark=' + mark);
+    }
+    </script>
     <a href="/"><h3>На главную</h3></a>
     <h1>{{ theme.name }}</h1>
+    {% if auth_user and theme.name != 'START' %}
+    <p>Я знаю эту тему на <select id="mark" onchange="updateMark()">
+        {% for i in marks %}
+        {% if i == my_mark %}
+            <option selected>{{ i }}</option>
+        {% else %}
+            <option>{{ i }}</option>
+        {% endif %}
+        {% endfor %}
+    </select></p>
+    {% endif %}
     {% for group_name, references in groups %}
         <h3 class="ref_group"><img src="/static/img/{{ references.0.group.icon }}"> {{ group_name }} </h3>
 
