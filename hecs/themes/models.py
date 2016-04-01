@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Theme(models.Model):
-    name = models.CharField(max_length=30, blank=True, default='')
+    name = models.CharField(max_length=60, blank=True, default='')
     x = models.IntegerField(null=True)
     y = models.IntegerField(null=True)
     color = models.CharField(max_length=20, blank=True, default='')
